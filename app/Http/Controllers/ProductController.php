@@ -24,13 +24,11 @@ class ProductController extends Controller
         $data['date'] = $date = $request->date;
         $data['variant'] = $variantData = $request->variant;
 
-        $data['variants'] = $variants = Variant::all();
-        foreach($variants as $variant){
-            $variant->variantProducts = ProductVariant::where('variant_id', $variant->id)
-                ->groupBy('product_variants.variant')
-                ->select('product_variants.variant')
-                ->get();
-        }
+        $data['variants'] = Variant::with('variantProducts')
+            ->get()
+            ->each(function ($variant) {
+                $variant->setRelation('variantProducts', $variant->variantProducts->unique('variant'));
+            });
 
         $data['products'] = $products = Product::where(function ($query) use ($title){
                 $query->orWhere('products.title', 'like', '%'.$title.'%');
