@@ -5,6 +5,7 @@
         <h1 class="h3 mb-0 text-gray-800">Create Product</h1>
     </div>
     <form action="{{ route('product.store') }}" method="post" autocomplete="off" spellcheck="false">
+        @csrf
         <section>
             <div class="row">
                 <div class="col-md-6">
@@ -17,7 +18,7 @@
                             <div class="form-group">
                                 <label for="product_name">Product Name</label>
                                 <input type="text"
-                                       name="product_name"
+                                       name="title"
                                        id="product_name"
                                        required
                                        placeholder="Product Name"
@@ -25,7 +26,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="product_sku">Product SKU</label>
-                                <input type="text" name="product_sku"
+                                <input type="text" name="sku"
                                        id="product_sku"
                                        required
                                        placeholder="Product Name"
@@ -87,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-lg btn-primary">Save</button>
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
             <button type="button" class="btn btn-secondary btn-lg">Cancel</button>
         </section>
     </form>
